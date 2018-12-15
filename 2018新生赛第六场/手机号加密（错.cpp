@@ -14,7 +14,7 @@ int len(int a)
 
 int main(void)
 {
-	int i=0,j,k=0,a,b,vb[31];
+	long long  int i=0,j,k=0,a,b,vb[31];
 	char vc[30];
 	scanf("%d",&a);
 	b=a;vb[0]=1;
@@ -39,13 +39,14 @@ int main(void)
 	//printf("%d\n",'1'-48);
 	//for(j=0;j<27;j++)
 		//printf("%c",vc[j]);
-	//k=1;
+	//k=1000001000;
 	if(k>9999999)
 	{
 		k=k%100000000;
-		printf("%d",k);
+		if(k>9999999)//防止出现1000001000之类的情况
+			printf("%d",k);
 	}
-	else
+	if(k<=9999999)
 	{
 		for(i=len(k);i<8;i++)
 			printf("0");
@@ -53,5 +54,6 @@ int main(void)
 	}
 	//printf("\n%d",len(k));
 }
+
 
 
