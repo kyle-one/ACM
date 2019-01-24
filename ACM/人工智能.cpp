@@ -1,0 +1,142 @@
+#include <stdio.h>
+int main(void)
+{
+	int i,a,b,j,k,n,vc[1000][1000],flag,sum=0,vb[1000][1000],flag1[5][3];
+	for(i=0;i<1000;i++)
+		for(j=0;j<1000;j++)
+			vb[i][j]=0;
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			scanf("%d",&vc[i][j]);
+	for(i=0;i<n;i++)
+	{
+		flag=0;
+		for(j=0;j<n;j++)
+			if(vc[i][j]!=0)
+			{
+				flag=1;
+				break;
+			}
+		if(flag==1)
+			for(j=0;j<n;j++)
+				vb[i][j]=1;
+	}
+	for(i=0;i<n;i++)
+	{
+		flag=0;
+		for(j=0;j<n;j++)
+			if(vc[j][i]!=0)
+			{
+				flag=1;
+				break;
+			}
+		if(flag==1)
+			for(j=0;j<n;j++)
+				vb[j][i]=1;
+	}
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+		{
+			if(vc[i][j]==2)
+			{
+				a=i;b=j;
+				while(1)//右下
+				{
+					if(vc[++a][++b]!=0||a==n-1||b==n-1)
+					{
+						if(vc[a][b]!=0)
+						{
+							flag1[0][0]=a-1;
+							flag1[0][1]=b-1;
+							//printf("%d %d \n",a,b);
+							break;
+						}
+						if(a==n-1||b==n-1)
+						{
+							flag1[0][0]=a;
+							flag1[0][1]=b;
+							break;
+						}
+					}
+				}
+				a=i;b=j;
+				while(1)//左上
+				{
+					if(vc[--a][--b]!=0||a==0||b==0)
+					{
+						if(vc[a][b]!=0)
+						{
+							flag1[1][0]=a+1;
+							flag1[1][1]=b+1;
+							//printf("%d %d \n",a,b);
+							break;
+						}
+						if(a==0||b==0)
+						{
+							flag1[1][0]=a;
+							flag1[1][1]=b;
+							break;
+						}
+					}
+				}
+				a=i;b=j;
+				while(1)//右上
+				{
+					if(vc[--a][++b]!=0||a==0||b==n-1)
+					{
+						if(vc[a][b]!=0)
+						{
+							flag1[2][0]=a+1;
+							flag1[2][1]=b-1;
+							//printf("%d %d \n",a,b);
+							break;
+						}
+						if(a==0||b==n-1)
+						{
+							flag1[2][0]=a;
+							flag1[2][1]=b;
+							break;
+						}
+					}
+				}
+				a=i;b=j;
+				while(1)//左下
+				{
+					if(vc[++a][--b]!=0||a==n-1||b==0)
+					{
+						if(vc[a][b]!=0)
+						{
+							flag1[3][0]=a-1;
+							flag1[3][1]=b+1;
+							//printf("%d %d \n",a,b);
+							break;
+						}
+						if(a==n-1||b==0)
+						{
+							flag1[3][0]=a;
+							flag1[3][1]=b;
+							break;
+						}
+					}
+				}
+				b=flag1[1][1];
+				for(a=flag1[1][0];a<=flag1[0][0];a++)
+					vb[a][b++]=1;
+				b=flag1[2][1];
+				for(a=flag1[2][0];a<=flag1[3][0];a++)
+					vb[a][b--]=1;
+
+			}
+		}
+		
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			if(vb[i][j]==1)
+				sum++;
+	printf("%d",n*n-sum);
+	return 0;
+}
+
+
+
