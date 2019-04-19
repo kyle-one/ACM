@@ -31,7 +31,7 @@ void dj(int beg)
 	{
 		node s=q.top();q.pop();
 		int id=s.id;
-		//if(dis[id]!=s.w) continue;
+		if(dis[id]!=s.w) continue;
 		for(int i=0;i<edge[id].size();i++)
 		{
 			if(dis[edge[id][i].v]>dis[id]+edge[id][i].w)
